@@ -30,6 +30,8 @@ services:
       SPRING_SQL_INIT_PLATFORM: postgresql
       SERVER_PORT: 8080
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health
+#     LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: DEBUG
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: DEBUG
     ports:
       - "8080:8080"
     restart: unless-stopped
