@@ -9,41 +9,41 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import org.codice.itest.api.IntegrationTest;
 
-class ApiIntegrationTest implements IntegrationTest {
+class ApiTest implements IntegrationTest {
   private static final HttpClient client = HttpClient.newHttpClient();
-  private static final String getUrl =
-      "http://localhost:8080/users/itest-bookmark-tree/bookmark-tree";
-  private static final String putUrl =
-      "http://localhost:8080/users/itest-bookmark-tree/bookmark-tree";
+  private static final String getUrl = "http://localhost:8080/users/jimmy/vfs";
+  private static final String putUrl = "http://localhost:8080/users/jimmy/vfs";
 
   private static String validRootTreeJson() {
     return """
                   {
-                    "uid": "root",
-                    "type": "folder",
-                    "name": "Root",
-                    "children": [
-                      {
-                        "uid": "my-folder",
-                        "type": "folder",
-                        "name": "My Folder",
-                        "children": []
-                      },
-                      {
-                        "uid": "trash",
-                        "type": "folder",
-                        "name": "Trash",
-                        "children": []
-                      }
-                    ]
-                  }
+                 "type" : "root",
+                 "id" : "root",
+                 "name" : "Root",
+                 "contents" : [ {
+                   "type" : "folder",
+                   "id" : "60396fcc-a122-428d-9d59-c943a87266e2",
+                   "name" : "my-folder",
+                   "contents" : [ ]
+                 }, {
+                   "type" : "folder",
+                   "id" : "f9e29f46-44d5-4557-aee4-4edf0f9c5750",
+                   "name" : "inbox",
+                   "contents" : [ ]
+                 }, {
+                   "type" : "folder",
+                   "id" : "8fd01b37-bfc8-4c54-ad8e-81eecae444a3",
+                   "name" : "trash",
+                   "contents" : [ ]
+                 } ]
+               }
                 """;
   }
 
   @Override
   public void cleanup() {
     DockerIntegrationTools.runCommand("docker", "compose", "down");
-    DockerIntegrationTools.runCommand("docker", "volume", "rm", "bookmarks-postgres-data");
+    DockerIntegrationTools.runCommand("docker", "volume", "rm", "bookmarks-data");
   }
 
   @Override

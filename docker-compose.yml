@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres:15
+    container_name: bookmarks-db
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
@@ -17,6 +18,7 @@ services:
 
   app:
     image: bookmarks-app:latest
+    container_name: bookmarks-service
     depends_on:
       db:
         condition: service_healthy
@@ -31,7 +33,9 @@ services:
       SERVER_PORT: 8080
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health
       #     LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: DEBUG
-      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: DEBUG
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB: DEBUG
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_HTTP_CONVERTER_JSON: TRACE
+      LOGGING_LEVEL_COM_FASTERXML.JACKSON.DATABIND: DEBUG
     ports:
       - "8080:8080"
       - "5005:5005"
@@ -40,3 +44,4 @@ services:
 # If there is another volume with the same name, bad things happen
 volumes:
   bookmarks-postgres-data:
+    name: bookmarks-data
