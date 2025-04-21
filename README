@@ -1,0 +1,6 @@
+Java 21
+
+The test will start and stop the application that is being tests.
+Here is how I build and execute the tests, with debugging enabled:
+
+ mvn package;java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000 -jar target/books-test-1.0.0.jar || true

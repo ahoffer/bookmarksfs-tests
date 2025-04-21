@@ -4,7 +4,9 @@ import static java.lang.ProcessBuilder.Redirect.INHERIT;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.http.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.Duration;
 
 public class DockerIntegrationTools {
@@ -35,7 +37,9 @@ public class DockerIntegrationTools {
                 .GET()
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        if (response.statusCode() == 200 && response.body().contains("UP")) {
+        int resopnseCode = response.statusCode();
+        String responseBody = response.body();
+        if (resopnseCode == 200 && responseBody.contains("UP")) {
           return;
         }
       } catch (Exception ignored) {

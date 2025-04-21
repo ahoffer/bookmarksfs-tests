@@ -13,13 +13,12 @@
  */
 package com.example.tests;
 
+import java.util.Map;
 import org.codice.itest.api.IntegrationTest;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-
-import java.util.Map;
 
 @SpringBootApplication(scanBasePackages = {"org.codice", "com.example.tests"})
 public class IntegrationTestApplication {
